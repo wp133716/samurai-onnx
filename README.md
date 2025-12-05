@@ -53,9 +53,9 @@ cd ..
 
 我们在本仓库新增了 `scripts/export_onnx.py`，用于把 SAM 2（sam2）模型拆分并导出为 ONNX 子模块，便于后续在以下项目中使用：
 
-- samurai-onnxruntime：使用 ONNX Runtime 做推理的实现；
+- [samurai-onnxruntime](https://github.com/wp133716/samurai-onnxruntime)：使用 ONNX Runtime 做推理的实现；
 - samurai-ascendACL：面向 Ascend/华为 AI 芯片的部署适配；
-- samurai-tensorrt：用于 TensorRT 的推理加速与优化。
+- [samurai-tensorrt](https://github.com/wp133716/samurai_tensorrt)：用于 TensorRT 的推理加速与优化。
 
 主要功能与说明：
 - 支持导出的子模块包括 image_encoder、memory_attention、memory_encoder、mask_decoder；
@@ -84,9 +84,9 @@ python scripts/export_onnx.py --model_path sam2/checkpoints/sam2.1_hiera_tiny.pt
 
 
 相关项目：
-- samurai-onnxruntime（ONNX Runtime 推理，Coming soon）
+- [samurai-onnxruntime](https://github.com/wp133716/samurai-onnxruntime)（ONNX Runtime 推理）
 - samurai-ascendACL（Ascend/华为芯片部署，Coming soon）
-- samurai-tensorrt（TensorRT 加速，Coming soon）
+- [samurai-tensorrt](https://github.com/wp133716/samurai_tensorrt)（TensorRT 加速）
 
 #### Data Preparation
 
