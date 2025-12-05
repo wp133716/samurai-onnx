@@ -23,15 +23,6 @@ https://github.com/user-attachments/assets/9d368ca7-2e9b-4fed-9da0-d2efbf620d88
 
 All rights are reserved to the copyright owners (TM & © Universal (2019)). This clip is not intended for commercial use and is solely for academic demonstration in a research paper. Original source can be found [here](https://www.youtube.com/watch?v=cwUzUzpG8aM&t=4s).
 
-## News
-- [ ] **Incoming**: Support vot-challenge toolkit intergration.
-- [ ] **Incoming**: Release demo script to support inference on video (with mask prompt).
-- [x] **2025/02/18**: Release multi-GPU inference script.
-- [x] **2025/01/27**: Release [inference script](https://github.com/yangchris11/samurai/blob/master/sam2/tools/README.md#samurai-vos-inference) on VOS task (SA-V)!
-- [x] **2024/11/21**: Release [demo script](https://github.com/yangchris11/samurai?tab=readme-ov-file#demo-on-custom-video) to support inference on video (bounding box prompt).
-- [x] **2024/11/20** Release [inference script](https://github.com/yangchris11/samurai?tab=readme-ov-file#main-inference) on VOT task (LaSOT, LaSOT-ext, GOT-10k, UAV123, TrackingNet, OTB100)!
-- [x] **2024/11/19**: Release [paper](https://arxiv.org/abs/2411.11922), [code](https://github.com/yangchris11/samurai), and [raw results](https://drive.google.com/drive/folders/1ssiDmsC7mw5AiItYQG4poiR1JgRq305y?usp=sharing)!
-
 ## Getting Started
 
 #### SAMURAI Installation 
@@ -57,6 +48,45 @@ cd checkpoints && \
 ./download_ckpts.sh && \
 cd ..
 ```
+
+#### ONNX 导出（export_onnx.py，新增）
+
+我们在本仓库新增了 `scripts/export_onnx.py`，用于把 SAM 2（sam2）模型拆分并导出为 ONNX 子模块，便于后续在以下项目中使用：
+
+- samurai-onnxruntime：使用 ONNX Runtime 做推理的实现；
+- samurai-ascendACL：面向 Ascend/华为 AI 芯片的部署适配；
+- samurai-tensorrt：用于 TensorRT 的推理加速与优化。
+
+主要功能与说明：
+- 支持导出的子模块包括 image_encoder、memory_attention、memory_encoder、mask_decoder；
+- 支持可选的 FP16 转换、动态轴、简化与动态量化（脚本内可配置）；
+- 导出过程中会保存部分中间位置编码文件（如 `om_model/vision_pos_embeds.npy`、`om_model/maskmem_pos_enc.npy`、`om_model/maskmem_tpos_enc.npy`），这些文件在部分硬件后端（Ascend 等）上会用到。
+
+依赖（导出时需安装，示例）：
+
+```
+pip install onnx==1.17.0
+pip install onnxruntime-gpu==1.20.0   # 如需 GPU 运行 ONNX Runtime
+~~pip install onnxconverter_common # onnxconverter_common 用于自动混合精度转换~~
+pip install onnx-sim # 用于简化 ONNX 模型
+```
+
+示例用法：
+
+```
+python scripts/export_onnx.py --model_path sam2/checkpoints/sam2.1_hiera_tiny.pt
+```
+
+输出位置与注意事项：
+- 导出文件默认写入脚本中指定的 `onnx_path` 路径下，例如 `onnx_model/mask_decoder.onnx`；
+- 如果启用 FP16，会生成后缀 `_FP16.onnx` 的文件；若启用量化，会生成 `_INT8.onnx`（需谨慎验证准确率）；
+- 导出与后续部署依赖的具体工具链（TensorRT/Ascend ACL）会有额外要求，请参见对应 downstream 项目的 README。
+
+
+相关项目：
+- samurai-onnxruntime（ONNX Runtime 推理，Coming soon）
+- samurai-ascendACL（Ascend/华为芯片部署，Coming soon）
+- samurai-tensorrt（TensorRT 加速，Coming soon）
 
 #### Data Preparation
 
