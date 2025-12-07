@@ -86,7 +86,7 @@ python scripts/export_onnx.py --model_path sam2/checkpoints/sam2.1_hiera_tiny.pt
 相关项目：
 - [samurai-onnxruntime](https://github.com/wp133716/samurai-onnxruntime)（ONNX Runtime 推理）
 - [samurai-ascendcl](https://github.com/wp133716/samurai-ascendcl)（Ascend/华为芯片部署）
-- [samurai-tensorrt](https://github.com/wp133716/samurai_tensorrt)（TensorRT 加速）
+- [samurai-tensorrt](https://github.com/wp133716/samurai-tensorrt)（TensorRT 加速）
 
 #### Data Preparation
 
