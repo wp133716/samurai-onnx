@@ -67,8 +67,8 @@ cd ..
 ```
 pip install onnx==1.17.0
 pip install onnxruntime-gpu==1.20.0   # 如需 GPU 运行 ONNX Runtime
-~~pip install onnxconverter_common # onnxconverter_common 用于自动混合精度转换~~
-pip install onnx-sim # 用于简化 ONNX 模型
+pip install onnxconverter_common # onnxconverter_common 用于自动混合精度转换
+pip install onnxsim # 用于简化 ONNX 模型
 ```
 
 示例用法：
