@@ -51,7 +51,7 @@ cd ..
 
 #### ONNX 导出（export_onnx.py，新增）
 
-我们在本仓库新增了 `scripts/export_onnx.py`，用于把 SAM 2（sam2）模型拆分并导出为 ONNX 子模块，便于后续在以下项目中使用：
+我们在本仓库新增了 `scripts/export_onnx.py`，用于把 samurai（sam2）模型拆分并导出为 ONNX 子模块，便于后续在以下项目中使用：
 
 - [samurai-onnxruntime](https://github.com/wp133716/samurai-onnxruntime)：使用 ONNX Runtime 做推理的实现；
 - [samurai-ascendcl](https://github.com/wp133716/samurai-ascendcl)：面向 Ascend/华为 AI 芯片的部署适配；
